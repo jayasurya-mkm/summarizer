@@ -1,0 +1,171 @@
+html,
+body,
+main {
+    height: 100%;
+    /* margin: 0; */
+    margin: auto;
+    padding: 0;
+    max-width: 50em;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings:
+        "wdth" 100;
+}
+
+/* body, main {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+} */
+
+main {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+    /* 100% of viewport height */
+}
+
+.response {
+    flex: 9 1 0%;
+    /* 90% */
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: auto;
+    position: relative;
+
+    p {
+        display: flex;
+
+        span {
+            padding: 12px;
+
+            border-radius: 20px;
+            line-height: 1.5;
+            letter-spacing: .3px;
+            font-size: 1.1em;
+        }
+    }
+}
+
+.search-bar {
+    flex: 1 1 0%;
+    /* 10% */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.search-bar input {
+    height: 3.5em;
+    box-sizing: content-box;
+    border: .5px solid;
+    border-radius: 20px;
+    padding: 0 1.5em;
+    width: 100%;
+    outline: none;
+}
+
+#user {
+    justify-content: flex-end
+}
+
+
+#user span {
+    background: #8000801f;
+}
+
+#agent span {
+    background: #0080000f;
+}
+
+
+.dot-elastic {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: purple;
+    border-radius: 50%;
+    color: purple;
+    animation: dotElastic 1s infinite linear;
+    right: 80px;
+    visibility: hidden;
+    bottom: 50px;
+}
+
+.dot-elastic::before,
+.dot-elastic::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: inherit;
+}
+
+.dot-elastic::before {
+    left: -15px;
+    animation: dotElasticBefore 1s infinite linear;
+}
+
+.dot-elastic::after {
+    left: 15px;
+    animation: dotElasticAfter 1s infinite linear;
+}
+
+@keyframes dotElastic {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.5, 1);
+    }
+}
+
+@keyframes dotElasticBefore {
+    0% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.5, 1);
+    }
+
+    50%,
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes dotElasticAfter {
+
+    0%,
+    50% {
+        transform: scale(1);
+    }
+
+    75% {
+        transform: scale(1.5, 1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+.show-loader {
+    /* display: block !important; */
+    visibility: visible;
+}
+.hide-loader {
+   visibility: hidden;
+}
