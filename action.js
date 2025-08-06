@@ -3,6 +3,18 @@ var chats = [];
 const responseSection = document.querySelector('.response');
 const loader = document.querySelector('.dot-elastic');
 
+Summarizer.availability({
+    type: "tldr",
+    length: "short",
+    format: "markdown",
+    expectedInputLanguages: ["en-US"],
+    outputLanguage: "en-US",
+}).then(availability => {
+    console.log("Summarizer availability:", availability);
+}).catch(error => {
+    console.error("Error checking summarizer availability:", error);
+})
+
 function updateResponse(items) {
     // Clear old content
     responseSection.innerHTML = '';
@@ -40,10 +52,15 @@ async function summarizeText(userInput) {
         sharedContext:
             "A general summary to help a user decide if the text is worth reading",
         type: "tldr",
-        length: "long",
+        length: "short",
         format: "markdown",
         expectedInputLanguages: ["en-US"],
         outputLanguage: "en-US",
+        monitor(monitor) {
+            monitor.addEventListener("downloadprogress", (e) => {
+                console.log(`Downloaded ${Math.floor(e.loaded * 100)}%`);
+            });
+        },
     });
     const stream = summarizer.summarizeStreaming(userInput);
     // Stream the response
@@ -54,9 +71,7 @@ async function summarizeText(userInput) {
     }
 
     // document.querySelector('.dot-elastic').style.display = 'none';
-    this.chats.push({ type: 'agent', content: stream });
+    this.chats.push({ type: 'agent', content: summary });
     loader.classList.remove('show-loader');
     updateResponse(this.chats);
-    // summaryOutput.textContent = summary;
-
 }
